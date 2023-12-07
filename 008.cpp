@@ -2,6 +2,16 @@
 
 using namespace std;
 
+long long getProduct(string x)
+{
+    long long product = 1;
+    for (size_t i = 0; i < x.size(); i++)
+    {
+        product *= (x[i] - '0');
+    }
+    return product;
+}
+
 int main()
 {
     long long bigNum = 0;
@@ -28,7 +38,7 @@ int main()
     
     for (unsigned int i = 0; i < number.length()-13; i++)
     {
-        bigNum = (stoll(number.substr(i, 13)) > bigNum)?stoll(number.substr(i, 13)):bigNum;
+        bigNum = (getProduct(number.substr(i, 13)) > bigNum)?getProduct(number.substr(i, 13)):bigNum;
     }
     
     cout<<bigNum;
