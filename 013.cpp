@@ -107,24 +107,19 @@ int main()
         "53503534226472524250874054075591789781264330331690",
     };
 
-    long long answer = 0, temp = 0;
+    long long answer = 0, carry = 0;
 
     for (int j = 49; j >= 0; j--) //columns
     {
         for (int i = 0; i < 100; i++) //rows
         {
-            temp+=(largeNums[i][j]-'0');
+            carry+=(largeNums[i][j]-'0');
         }
     
-        if(j==0)
-        {
-            answer += temp * pow(10, 10-j);
-        }
-        else if(j<10)
-        {
-            answer += temp%10 * pow(10, 10-j);
-        }
-        temp/=10; //remove the last digit
+        if(j==0) answer += carry * pow(10, 10-j);
+        else if(j<10) answer += carry%10 * pow(10, 10-j);
+        
+        carry/=10; //remove the last digit
     }
 
     cout<<to_string(answer).substr(0,10);
