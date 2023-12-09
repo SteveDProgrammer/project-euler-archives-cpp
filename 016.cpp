@@ -9,12 +9,12 @@ int main()
 
     for (size_t i = 1; i <= 1000; i++)
     {
-        int carry = 0, temp = 0;
+        int carry = 0, unitDigit = 0;
         for(auto it = largeNum.rbegin(); it !=largeNum.rend(); it++)
         {
-            temp = ((*it)*2+carry) % 10;
+            unitDigit = ((*it)*2+carry) % 10;
             carry = ((*it)*2+carry)/10;
-            *it = temp;
+            *it = unitDigit;
         }
 
         while(carry != 0)
@@ -26,13 +26,10 @@ int main()
     
     for (int x:largeNum)
     {
-        //cout<<x;
         answer += x;
     }
 
     cout<<answer;
     
-    
-
     return 0;
 }

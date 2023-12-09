@@ -53,7 +53,7 @@ int main()
                 c = grid[i][j] * grid[i+1][j+1] * grid[i+2][j+2] * grid[i+3][j+3];
                 greatestProduct = findMax(greatestProduct, c);
             }
-            if(i>=3)
+            if(i>=3 && j<=16)
             {
                 d = grid[i][j] * grid[i-1][j+1] * grid[i-2][j+2] * grid[i-3][j+3];
                 greatestProduct = findMax(greatestProduct, d);
