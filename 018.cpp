@@ -2,18 +2,15 @@
 #include<vector>
 using namespace std;
 
-int findMax(vector<vector<int>>& tree, int level, int index)
+int findMaxPathSum(vector<vector<int>>& tree, int level, int index)
 {
-    // Base case: we have reached the bottom of the tree
-    if (level == tree.size() - 1) {
+    if(level == tree.size()-1)
+    {
         return tree[level][index];
     }
 
-    // Recursive cases
-    int left = findMax(tree, level + 1, index);
-    int right = findMax(tree, level + 1, index + 1);
-
-    // Return the maximum of the two paths plus the current node
+    int left = findMaxPathSum(tree, level+1, index);
+    int right = findMaxPathSum(tree, level+1, index+1);
     return tree[level][index] + max(left, right);
 }
 
@@ -36,10 +33,5 @@ int main()
         {63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31},
         {4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23}
     };
-
-    // Find and print the maximum total
-    int maxTotal = findMax(tree, 0, 0);
-    cout << "Maximum total: " << maxTotal << endl;
-
-    return 0;
+    cout<<findMaxPathSum(tree, 0, 0);
 }

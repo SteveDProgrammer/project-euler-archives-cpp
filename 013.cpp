@@ -116,7 +116,7 @@ int main()
             carry+=(largeNums[i][j]-'0');
         }
     
-        if(j==0) answer += carry * pow(10, 10-j);
+        if(j==0) answer += carry * pow(10, 10);
         else if(j<10) answer += carry%10 * pow(10, 10-j);
         
         carry/=10; //remove the last digit
