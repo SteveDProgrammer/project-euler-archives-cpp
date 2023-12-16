@@ -1,6 +1,8 @@
 #include<iostream>
 #include<fstream>
-#include <string>
+#include<string>
+#include<set>
+
 using namespace std;
 
 int main()
@@ -14,11 +16,25 @@ int main()
     }
 
     string name;
+    set<string> nameSet;
     while(getline(iFile, name, ','))
     {
-        cout<<name<<endl;
+        nameSet.insert(name.substr(1, name.size()-2));
+    }
+    
+    iFile.close();
+
+    int multiplier = 1;
+    int totalSum = 0;
+    for(string name: nameSet)
+    {
+        int sum = 0;
+        for(char c: name) sum += (c-'A')+1;
+        totalSum += multiplier * sum;
+        multiplier++;        
     }
 
-    iFile.close();
+    cout<<totalSum;
+    
     return 0;
 }
