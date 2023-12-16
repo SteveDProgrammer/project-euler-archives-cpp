@@ -25,7 +25,6 @@ Therefore, 10^(d-1) <= n < 10^d
 
 #include <iostream>
 #include <string>
-#include <cmath>
 
 using namespace std;
 
