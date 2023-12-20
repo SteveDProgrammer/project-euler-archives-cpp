@@ -11,52 +11,66 @@ Find the sum of all the positive integers which cannot be written as the sum of 
 */
 
 #include<iostream>
-#include<unordered_set>
+#include<bitset>
 using namespace std;
+
+const int limit = 28123;
 
 bool isAbundant(int n)
 {
     int sum = 0;
-    for(int i=1; i * i < n; i++)
+    for (int i = 2; i * i <= n; i++) // Start from 2 beacuse adding n/1 would include n in the sum
     {
-        if(n % i == 0)
+        if (n % i == 0)
         {
+            if(i * i == n) // Don't add n/i for perfect squares to avoid double addition of square root
+            {
+                sum += i;
+                continue;    
+            }
             sum += (i + n/i);
         }
     }
-    //cout<<sum-n;
-    if(sum-n > n) return true;
-    return false;
+    return sum > n;
 }
 
 int main()
 {
-    unordered_set<int> abundantNumbers;
+    bitset<limit + 1> isAbundantNum;
+    bitset<limit + 1> isSumOfAbundant;
+    int total = 0;
 
-    long long total = 28123*(28123 + 1)/2;
-
-    for (int i = 12; i <= 28123; i++)
+    for (int i = 12; i <= limit; i++)
     {
-        if(isAbundant(i))
+        if (isAbundant(i))
         {
-            abundantNumbers.insert(i);
-        }   
+            isAbundantNum.set(i);
+        }
     }
 
-    cout<<abundantNumbers.size()<<endl;
-
-    for(auto i = abundantNumbers.begin(); i!=abundantNumbers.end(); i++)
+    for (int i = 12; i <= limit; i++)
     {
-        for (auto j = abundantNumbers.begin(); j != abundantNumbers.end(); j++)
+        if (isAbundantNum.test(i))
         {
-            if(!isAbundant(*i + *j))
+            for (int j = i; i + j <= limit; j++)
             {
-                total -= (*i + *j);
+                if (isAbundantNum.test(j))
+                {
+                    isSumOfAbundant.set(i + j);
+                }
             }
         }
     }
 
-    cout<<total;
-    
+    for (int i = 1; i <= limit; i++)
+    {
+        if (!isSumOfAbundant.test(i))
+        {
+            total += i;
+        }
+    }
+
+    cout << total;
+
     return 0;
 }
