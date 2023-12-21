@@ -1,31 +1,28 @@
 #include <iostream>
-#include <cmath>
+#include <algorithm>
 using namespace std;
 
-string Add(string s1, string s2)
+string Add(const string& s1, const string& s2)
 {
     string result = "";
-    int lenDiff = abs((int)s1.length() - (int)s2.length());
-
-    if(s1.length() > s2.length()) 
+    size_t len1 = s1.length();
+    size_t len2 = s2.length();
+    size_t maxLength = max(len1, len2);
+    
+    int carry = 0;
+    for (size_t i = 0; i < maxLength || carry > 0; ++i)
     {
-        s2 = string(lenDiff, '0') + s2;
-    }
-    else if(s1.length() < s2.length()) 
-    {
-        s1 = string(lenDiff, '0') + s1;
-    }
-
-    int digit = 0, carry = 0;
-    for(int i = s1.length() - 1; i >= 0; i--)
-    {
-        int digitSum = (s1[i] - '0') + (s2[i] - '0') + carry; // convert char to int
-        digit = digitSum % 10;
-        result.insert(result.begin(), digit + '0'); // convert int to char
+        int digitSum = carry;
+        if (i < len1) digitSum += s1[len1 - 1 - i] - '0';
+        if (i < len2) digitSum += s2[len2 - 1 - i] - '0';
+        
+        result.push_back(digitSum % 10 + '0');
         carry = digitSum / 10;
     }
 
-    if(carry > 0) result.insert(result.begin(), carry + '0');
+    // Reverse the string
+    reverse(result.begin(), result.end());
+
     return result;
 }
 
@@ -33,13 +30,15 @@ int main()
 {
     string n1 = "1", n2 = "1", n3 = "";
     int counter = 2;
-    while(n3.length() < 1000)
+
+    while (n3.length() < 1000)
     {
         counter++;
         n3 = Add(n1, n2);
         n1 = n2;
         n2 = n3;
     }
-    cout<<counter;
+
+    cout << counter << endl;
     return 0;
 }
