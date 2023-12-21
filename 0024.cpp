@@ -1,37 +1,69 @@
 /*
-
-If our number is 0123456789, and we want the millionth permutation, then 1000000/(n-1)! gives 2.75 ~ 2
-which means we have 2.75 permutation cycles for (n-1) digits following digit at n position before we 
-change the digit at position n
-    - so for n = 0, we cycle the other digits (n-1)! times, then swap positions of 1 & 0
-    - then for n = 1, we cycle 023456789 (n-1)! times, then swap positions of 1 & 2
-    - then for n = 2, we cannot make a complete cycle because we need 2.75 permutations in total 
-    - so we shift to (n-1) position and repeat the process
-
-*** For permutations position always remains same only the digit keeps swapping positions
+To find the millionth permutation of "0123456789":
 
 1. Calculate (n-1)!:
-   - 9! = 362,880
+   - (9!) = 362,880
 
-2. Find the quotient and remainder:
-   - 1000000 / 362880 = (~2.75) 2 with a remainder of 274240.
+2. Find the quotient (q) and remainder (r) after dividing 1,000,000 by (n-1)!:
+   - 1,000,000 / 362,880 = 2 with a remainder of 274,240.
 
-    2.1. First Iteration - Cycle through digits 1 to 9:
-        - 2 complete cycles of permutations for digits 1 to 9, while keeping 0 fixed.
+3. Iterations:
+
+    3.1. First Iteration - Cycle through digits 1 to 9:
+        - 2 cycles of permutations for digits 1 to 9 while keeping value at position 0 fixed.
         - After each cycle, swap the leading digit with the next digit in the sequence.
-        - After the 2nd cycle, the leading digit changes to 2.
+        - After the second cycle, the leading digit becomes 2.
 
-    2.2. Second Iteration - Cycle through digits 0, 2 to 9:
-        - 2 complete cycles of permutations for digits 0, 2, 3, 4, 5, 6, 7, 8, 9, while keeping 1 fixed.
+    3.2. Second Iteration - Cycle through digits 0, 1, 3, 4, 5, 6, 7, 8, 9:
+        - 2 cycles of permutations for digits 0, 1, 3, 4, 5, 6, 7, 8, 9 while keeping the value at position 0 fixed.
         - After each cycle, swap the leading digit with the next digit in the sequence.
-        - After the 2nd cycle, the leading digit changes to 3.
+        - After the second cycle, the leading digit becomes 4.
 
-    2.3. Partial Third Iteration - Cycle through digits 0, 1, 3 to 9:
-        - 0.75 * 362880 permutations for digits 0, 1, 3, 4, 5, 6, 7, 8, 9, while keeping 2 fixed.
-        - After this partial cycle, the leading digit changes to 4.
+    3.3. Partial Third Iteration - Cycle through digits 0, 1, 3 to 9:
+        - 0.75 * 362,880 permutations for digits 0, 1, 3, 4, 5, 6, 7, 8, 9, keeping 2 fixed.
+        - After this partial cycle, the leading digit becomes 4.
 
-3. Repeat:
-   - Continue this process with the remaining digits 013456789 and the remainder 274240.
-   - Calculate 274240 / 8! to find the next leading digit and position within the remaining digits.
-   - Iterate until you've determined all digits in the permutation.
+4. Repeat:
+   - Continue the process with the remaining digits (013456789) and the remainder (r = 274,240).
+   - Calculate r / (8!) to find the next leading digit and its position within the remaining digits.
+   - Iterate until all digits in the permutation are determined.
 */
+
+#include <iostream>
+using namespace std;
+
+int factorial(int x) {
+    if (x == 0) return 1;
+    return x * factorial(x - 1);
+}
+
+void permute(string &arrangement, int n, int fixedPos = 0, int r = 999999) { // millionth permutation is reached after 999999th iteration
+    if (r == 0) return; // r represents the number of permutations remaining
+
+    int q = r / factorial(n - 1); // Quotient
+    r = r % factorial(n - 1);    // Remainder
+
+    cout<<arrangement<<" | Fixed Pos: "<<fixedPos<<" | Relative q: "<<fixedPos + q<<endl;
+    for (int j = fixedPos + 1; j <= fixedPos + q; j++) {
+        for (int i = 0; i < j; i++)
+        {
+            cout<<"-";
+        }
+        swap(arrangement[fixedPos], arrangement[j]);
+        cout<<arrangement.substr(j, arrangement.length()-j)<<endl;
+    }
+
+    cout<<endl;
+
+    permute(arrangement, --n, ++fixedPos, r);
+}
+
+int main() {
+    string arrangement = "0123456789";
+    int n = arrangement.length();
+
+    permute(arrangement, n);
+
+    cout << arrangement;
+    return 0;
+}
