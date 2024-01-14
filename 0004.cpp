@@ -24,24 +24,22 @@ Therefore, 10^(d-1) <= n < 10^d
 */
 
 #include <iostream>
-#include <string>
+#include <cmath>
 
 using namespace std;
 
-bool isPalindrome(int number){
-    //int back = (int)log10(number);
-    string num_string = to_string(number);
-
-    int front = 0;
-    int back = num_string.length()-1;
-
-    while(front < back)
+bool isPalindrome(int number)
+{
+    int power = log10(number);
+    int original = number;
+    int reverse = 0;
+    while(power >= 0)
     {
-        if(num_string[front]!=num_string[back]) return false;
-        front++;
-        back--;
+        reverse += number % 10 * pow(10, power);
+        number /= 10;
+        power--;
     }
-    return true;
+    return (reverse == original);
 }
 
 int main()
