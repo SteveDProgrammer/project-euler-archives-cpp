@@ -1,8 +1,15 @@
 /*
-- Prime numbers have only two divisors: 1 and itself.
-- If n is not prime, it can be written as n = a * b.
-- If a increases, b automatically decreases if n remains constant, because n = a * b. 
+- Prime numbers have only two divisors
+    - 1 and itself
+
+- If n is not prime, then 
+    - n = a * b.
+
+- If we keep n constant
+    - Increasing a will decrease b, because n = a * b. 
+
 - So, by checking all a <= sqrt(n), we automatically check all corresponding b values.
+
 - If no factors are found then n is a prime number.
 */
 
