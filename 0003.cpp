@@ -1,20 +1,9 @@
 /*
-Largest Prime Factor
-
-Problem 3
-
-The prime factors of 13195 are 5, 7, 13 and 29.
-What is the largest prime factor of the number 600851475143?
-
-HINT :- There can't be two factors of a number greater than the square root of the number.
-If there are, then that would result in a number greater than the original number which is a contradiction.
-
-ANALOGY:
-
-- Consider the number to be Area of a Rectangle, and factors a & b to be the sides
-- That would give us a square if a = b = sqrt(number)
-- If a = b, we can't increase both a and b without changing the area of the rectangle
-- Hence, all other value of a and b will be less than sqrt(number)
+- Prime numbers have only two divisors: 1 and itself.
+- If n is not prime, it can be written as n = a * b.
+- If a increases, b automatically decreases if n remains constant, because n = a * b. 
+- So, by checking all a <= sqrt(n), we automatically check all corresponding b values.
+- If no factors are found then n is a prime number.
 */
 
 #define NUMBER 600851475143
