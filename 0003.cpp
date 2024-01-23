@@ -2,15 +2,17 @@
 - Prime numbers have only two divisors
     - 1 and itself
 
-- If n is not prime, then 
-    - n = a * b.
-
-- If we keep n constant
-    - Increasing a will decrease b, because n = a * b. 
-
-- So, by checking all a <= sqrt(n), we automatically check all corresponding b values.
-
-- If no factors are found then n is a prime number.
+- If n is not prime: 
+    - Then n = a * b
+    
+    - If a = b
+        - Then n = sqrt(n) * sqrt(n)
+        - sqrt(n) is the midpoint of all factors
+    
+    - Increasing a will decrease b, because n = a * b
+        - Increase a, then a > b
+        - Then b < sqrt(n) < a
+        - So, on checking all nums <= sqrt(n), we're guranteed to reach b which is a factor
 */
 
 #define NUMBER 600851475143
