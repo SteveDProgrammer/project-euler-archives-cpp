@@ -43,7 +43,7 @@ void permute(string &arrangement, int n, int fixedPos = 0, int r = 999999) { // 
     int q = r / factorial(n - 1); // Quotient
     r = r % factorial(n - 1);    // Remainder
 
-    cout<<arrangement<<" | Fixed Pos: "<<fixedPos<<" | Relative q: "<<fixedPos + q<<endl;
+    cout<<arrangement<<" | Fixed Pos: "<<fixedPos<<" | Relative q: "<<q<<endl;
     for (int j = fixedPos + 1; j <= fixedPos + q; j++) {
         for (int i = 0; i < j; i++)
         {
