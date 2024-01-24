@@ -13,7 +13,7 @@ int daysInYear(int year)
 
 int main()
 {
-    int firstDayOf1901 = daysInYear(1900)%7 + 1; //daysInYear(int) returns no. of days in year, add one for next day (first day of next year)
+    int firstDayOf1901 = daysInYear(1900)%7 + 1; //daysInYear(int)%7 is last day of year, add one for next day (first day of next year)
     int totalSundays = 0;
 
     int currDay = firstDayOf1901;
